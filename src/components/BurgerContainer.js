@@ -9,7 +9,7 @@ export default class BurgerContainer extends Component {
     console.log('CONTAINER', this.props);
     return (
       <div className="BurgerContainer">
-        <BurgerFilter />
+        <BurgerFilter burgerFilter={this.props.burgerFilter}/>
         <BurgerList burgerList={this.props.burgerList} chooseBurger={this.props.chooseBurger}/>
       </div>
     )

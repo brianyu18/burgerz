@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
 
-const BurgerDisplay = (props) => {
+const BurgerDisplay = ({showBurger}) => {
+
+  console.log({showBurger})
+
+  function changeHandler(e, burger){
+    console.log("CHANGE", burger)
+
+  }
+
+  let theBurger
+  if(showBurger.category === "Bougie"){
+    theBurger = `${showBurger.category} 💸💸💸`
+  } else {theBurger = `${showBurger.category} 💩💩💩`}
+
   return (
     <div className="BurgerDisplay">
-      <img src={"" /* Insert burger Image URL here */}/>
+      <img src={`${showBurger.imgURL}` /* Insert burger Image URL here */}/>
       <br/>
-      <h1>Insert Burger Name Here</h1>
+      <h1>{showBurger.name}</h1>
+      <h4>This Burger is: {theBurger}</h4>
       <br/>
-      <select onChange={console.log}>
+      <select onChange={(e) => changeHandler(e, showBurger.id)} value={showBurger.category}>
         <option value="Relatable">Relatable</option>
         <option value="Bougie">Bougie</option>
       </select>

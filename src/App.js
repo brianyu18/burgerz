@@ -8,13 +8,48 @@ class App extends Component {
   state={
     burgerList: [],
     filteredBurgers: [],
-    target: ""
+    target: "",
+    // filterType: ""
   }
 
-  chooseBurger=(e, burger)=>{
-    console.log(burger)
+  burgerFilter = (value) => {
+    console.log(value)
+    if(value === "Bougie"){
+      let newArr = [...this.state.burgerList].filter(
+        burger => {
+          return burger.category === "Bougie"
+        })
+      console.log("BOUGIE", newArr)
+      this.setState({
+        filteredBurgers: newArr
+      })
+    } else if(value === "Relatable"){
+      let newArr = [...this.state.burgerList].filter(
+        burger => {
+          return burger.category === "Relatable"
+        })
+      console.log("RELATABLE", newArr)
+      this.setState({
+        filteredBurgers: newArr
+      })
+    } else if(value === "All"){
+      this.setState({
+        filteredBurgers: this.state.burgerList
+      })
+      console.log("ALL", this.state.filteredBurgers.length)
+    }
+  }
+
+  // changeCategory = () => {
+  //   fetch(`http://localhost:3001/burgers/${}`)
+  //   .then()
+  //   .then()
+  // }
+
+  chooseBurger=(e, pickedBurger)=>{
+    console.log(pickedBurger)
     this.setState({
-      target: burger
+      target: pickedBurger.burger
     })
   }
 
@@ -26,15 +61,28 @@ class App extends Component {
       this.setState({
         burgerList: burgers
       })
-      console.log(this.state.burgerList)
+      this.setState({
+        filteredBurgers: this.state.burgerList,
+      })
+      console.log("FILTERBURGERS", this.state.filteredBurgers)
     })
   }
 
   render() {
+    let display = this.state.target == "" ? (
+      <div className="BurgerDisplay">
+        <img src="https://collegian.com/wp-content/uploads/2015/04/BobsBurgers.jpg"/>
+        <br/>
+        <h1>Welcome to BurgerBobs</h1>
+        <br/>
+      </div>) : (
+        <BurgerDisplay showBurger={this.state.target}/>
+      )
+
     return (
       <div id="App">
-        <BurgerContainer burgerList={this.state.burgerList} chooseBurger={this.chooseBurger}/>
-        <BurgerDisplay chooseBurger={this.chooseBurger}/>
+        <BurgerContainer burgerList={this.state.filteredBurgers} chooseBurger={this.chooseBurger} burgerFilter={this.burgerFilter}/>
+        {display}
       </div>
     );
   }
