@@ -4,11 +4,13 @@ import BurgerFilter from './BurgerFilter'
 
 export default class BurgerContainer extends Component {
 
+
   render(){
+    console.log('CONTAINER', this.props);
     return (
       <div className="BurgerContainer">
         <BurgerFilter />
-        <BurgerList />
+        <BurgerList burgerList={this.props.burgerList} chooseBurger={this.props.chooseBurger}/>
       </div>
     )
   }
